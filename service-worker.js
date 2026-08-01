@@ -1,9 +1,10 @@
-const CACHE_NAME = 'khalood-v1';
+const CACHE_NAME = 'khalood-v2';
 const urlsToCache = [
   '/index.html',
   '/style.css',
   '/app.js',
-  '/manifest.json'
+  '/manifest.json',
+  '/logo.svg'
 ];
 
 // Install event - cache resources
@@ -90,8 +91,8 @@ async function syncData() {
 self.addEventListener('push', event => {
   const options = {
     body: event.data ? event.data.text() : 'New notification',
-    icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a85cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='192' height='192' rx='48' fill='url(%23g)'/%3E%3Ctext x='96' y='120' font-family='Arial' font-size='80' fill='white' text-anchor='middle' font-weight='bold'%3EKH%3C/text%3E%3C/svg%3E",
-    badge: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a85cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='96' height='96' rx='24' fill='url(%23g)'/%3E%3Ctext x='48' y='60' font-family='Arial' font-size='40' fill='white' text-anchor='middle' font-weight='bold'%3EKH%3C/text%3E%3C/svg%3E",
+    icon: '/logo.svg',
+    badge: '/logo.svg',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),

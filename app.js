@@ -2031,6 +2031,9 @@ function initApp() {
   
   // Register service worker
   registerServiceWorker();
+
+  // Upgrade manifest icons to crisp PNGs for the installed app icon
+  enhancePwaIcons();
   
   // Update badge counts
   updateBadges();
@@ -2148,6 +2151,62 @@ function registerServiceWorker() {
       .catch(error => {
         console.log('Service Worker registration failed:', error);
       });
+  }
+}
+
+// ===== PWA Icons: render logo.svg to crisp PNGs for the install icon =====
+function svgToPngDataUrl(svgText, size) {
+  return new Promise((resolve) => {
+    const svg64 = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgText)));
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, size, size);
+        resolve(canvas.toDataURL('image/png'));
+      } catch (e) {
+        resolve(null);
+      }
+    };
+    img.onerror = () => resolve(null);
+    img.src = svg64;
+  });
+}
+
+async function enhancePwaIcons() {
+  try {
+    const [svgRes, manifestRes] = await Promise.all([
+      fetch('/logo.svg'),
+      fetch('/manifest.json')
+    ]);
+    if (!svgRes.ok || !manifestRes.ok) return;
+
+    const svgText = await svgRes.text();
+    const manifest = await manifestRes.json();
+
+    const pngIcons = [];
+    for (const size of [512, 192]) {
+      const dataUrl = await svgToPngDataUrl(svgText, size);
+      if (dataUrl) {
+        pngIcons.push({ src: dataUrl, sizes: `${size}x${size}`, type: 'image/png', purpose: 'any' });
+        pngIcons.push({ src: dataUrl, sizes: `${size}x${size}`, type: 'image/png', purpose: 'maskable' });
+      }
+    }
+
+    if (pngIcons.length === 0) return;
+
+    // PNG icons first so installers pick the raster version
+    manifest.icons = [...pngIcons, ...(manifest.icons || [])];
+
+    const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+    const link = document.querySelector('link[rel="manifest"]');
+    if (link) link.href = URL.createObjectURL(blob);
+  } catch (e) {
+    // Silently fall back to the static SVG manifest
+    console.log('PWA icon enhancement skipped:', e);
   }
 }
 

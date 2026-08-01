@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="ringGrad" x1="0%" y1="30%" x2="100%" y2="70%">
+      <stop offset="0%" stop-color="#159a9c"/>
+      <stop offset="35%" stop-color="#3fd0c9"/>
+      <stop offset="70%" stop-color="#bfe6c9"/>
+      <stop offset="100%" stop-color="#f6d489"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f8b8f"/>
+      <stop offset="45%" stop-color="#5fd0c4"/>
+      <stop offset="100%" stop-color="#f3cf7e"/>
+    </linearGradient>
+    <linearGradient id="headGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7fd8c8"/>
+      <stop offset="100%" stop-color="#f6d489"/>
+    </linearGradient>
+    <radialGradient id="bgGlow" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#1d3a3f" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#131a21" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#0d1218" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff8e1" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#fff8e1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" fill="#0d1218"/>
+  <rect width="512" height="512" fill="url(#bgGlow)"/>
+
+  <!-- Soft glow behind dial -->
+  <circle cx="252" cy="236" r="170" fill="url(#starGlow)" opacity="0.35"/>
+
+  <!-- Speedometer ring (open at bottom-right) -->
+  <circle cx="248" cy="234" r="138" fill="none" stroke="url(#ringGrad)" stroke-width="26" stroke-linecap="round"
+          stroke-dasharray="700 168" transform="rotate(38 248 234)"/>
+
+  <!-- Tick marks -->
+  <g stroke="#9fd9cf" stroke-width="10" stroke-linecap="round" opacity="0.9">
+    <line x1="248" y1="128" x2="248" y2="152" transform="rotate(-52 248 234)"/>
+    <line x1="248" y1="128" x2="248" y2="152" transform="rotate(-26 248 234)"/>
+    <line x1="248" y1="126" x2="248" y2="154" transform="rotate(0 248 234)" stroke="#f2e7c4"/>
+    <line x1="248" y1="128" x2="248" y2="152" transform="rotate(26 248 234)" stroke="#f2e2b4"/>
+    <line x1="248" y1="128" x2="248" y2="152" transform="rotate(52 248 234)" stroke="#f6d489"/>
+  </g>
+
+  <!-- Tail loop (bottom-right) -->
+  <path d="M 306 352 a 44 44 0 1 1 52 -58" fill="none" stroke="url(#arrowGrad)" stroke-width="26" stroke-linecap="round"/>
+
+  <!-- Arrow shaft -->
+  <path d="M 330 322 C 268 296 254 258 288 214 C 312 184 342 158 370 136"
+        fill="none" stroke="url(#arrowGrad)" stroke-width="30" stroke-linecap="round"/>
+
+  <!-- Arrow head -->
+  <polygon points="408,102 340,124 382,172" fill="url(#headGrad)"/>
+
+  <!-- Center sparkle -->
+  <path d="M252 176 L267 221 L312 236 L267 251 L252 296 L237 251 L192 236 L237 221 Z" fill="#fdf6df"/>
+  <!-- Small secondary sparkle -->
+  <path d="M300 186 L306 200 L320 206 L306 212 L300 226 L294 212 L280 206 L294 200 Z" fill="#f6d489"/>
+</svg>
