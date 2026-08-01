@@ -201,6 +201,30 @@ const translations = {
     pending: 'Pending',
     recurring: 'Recurring',
     
+    // PWA
+    installApp: 'Install App',
+    installBannerTitle: 'Install KHALOOD on your device',
+    installBannerDesc: 'Works offline, launches instantly, feels like a native app.',
+    installNow: 'Install',
+    later: 'Later',
+    installedAlready: 'App is already installed',
+    appInstalled: 'KHALOOD installed successfully! 🎉',
+    online: 'Online',
+    offline: 'Offline',
+    backOnline: 'You are back online',
+    lostConnection: 'No internet — your data is safe and available offline',
+    newVersion: 'A new version is available',
+    updateNow: 'Update',
+    guideTitle: 'Install KHALOOD',
+    guideIosTitle: 'On iPhone / iPad (Safari)',
+    guideDesktopTitle: 'On Computer (Chrome / Edge)',
+    guideAndroidTitle: 'On Android (Chrome)',
+    stepShare: 'Tap the Share button',
+    stepAddHome: 'Choose "Add to Home Screen"',
+    stepConfirm: 'Tap "Add" — done!',
+    stepMenu: 'Open the browser menu',
+    stepInstall: 'Click "Install KHALOOD" / "Save and Share" → "Install"',
+    
     // Motivational quotes
     quotes: [
       { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
@@ -410,6 +434,30 @@ const translations = {
     pending: 'قيد الانتظار',
     recurring: 'متكرر',
     
+    // PWA
+    installApp: 'تثبيت التطبيق',
+    installBannerTitle: 'ثبّت خالود على جهازك',
+    installBannerDesc: 'يشتغل بدون إنترنت، يفتح فوراً، وكأنه تطبيق أصلي.',
+    installNow: 'تثبيت',
+    later: 'لاحقاً',
+    installedAlready: 'التطبيق مثبّت بالفعل',
+    appInstalled: 'تم تثبيت خالود بنجاح! 🎉',
+    online: 'متصل',
+    offline: 'بدون إنترنت',
+    backOnline: 'عاد الاتصال بالإنترنت',
+    lostConnection: 'لا يوجد إنترنت — بياناتك محفوظة ومتاحة بدون اتصال',
+    newVersion: 'نسخة جديدة متاحة',
+    updateNow: 'تحديث',
+    guideTitle: 'تثبيت خالود',
+    guideIosTitle: 'على الآيفون / الآيباد (Safari)',
+    guideDesktopTitle: 'على الكمبيوتر (Chrome / Edge)',
+    guideAndroidTitle: 'على أندرويد (Chrome)',
+    stepShare: 'اضغط زر المشاركة',
+    stepAddHome: 'اختر "إضافة إلى الشاشة الرئيسية"',
+    stepConfirm: 'اضغط "إضافة" — تم!',
+    stepMenu: 'افتح قائمة المتصفح',
+    stepInstall: 'اضغط "تثبيت KHALOOD" أو "حفظ ومشاركة" ← "تثبيت"',
+    
     // Motivational quotes
     quotes: [
       { text: "سر التقدم هو البدء.", author: "مارك توين" },
@@ -573,14 +621,26 @@ function openModal(title, content, onSave) {
   modal.querySelector('.modal-title').textContent = title;
   modal.querySelector('.modal-body').innerHTML = content;
   
+  // Reset footer state (a previous guide modal may have hidden the save button)
   const saveBtn = modal.querySelector('.modal-save');
+  const cancelBtn = modal.querySelector('.modal-cancel');
+  saveBtn.style.display = '';
+  cancelBtn.style.display = '';
+  cancelBtn.textContent = state.t('cancel');
+  
   const newSaveBtn = saveBtn.cloneNode(true);
   saveBtn.parentNode.replaceChild(newSaveBtn, saveBtn);
   
-  newSaveBtn.addEventListener('click', () => {
-    if (onSave) onSave();
-    closeModal();
-  });
+  if (onSave) {
+    newSaveBtn.addEventListener('click', () => {
+      onSave();
+      closeModal();
+    });
+  } else {
+    // Info-only modal: hide Save, Cancel becomes Close
+    newSaveBtn.style.display = 'none';
+    cancelBtn.textContent = state.t('close');
+  }
   
   overlay.classList.add('active');
 }
@@ -600,8 +660,9 @@ function toggleTheme() {
 function updateThemeToggle() {
   const btn = $('.theme-toggle');
   if (btn) {
-    btn.innerHTML = state.currentTheme === 'dark' ? '☀️' : '🌙';
+    btn.innerHTML = `<i data-lucide="${state.currentTheme === 'dark' ? 'sun' : 'moon'}"></i>`;
     btn.title = state.currentTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+    refreshIcons();
   }
 }
 
@@ -651,6 +712,13 @@ function applyLanguage() {
   if (pageTitle && titleMap[state.currentSection]) {
     pageTitle.textContent = state.t(titleMap[state.currentSection]);
   }
+
+  // Refresh dynamic chrome after language switch
+  updateNetPill();
+  removeInstallBanner();
+  renderInstallBanner();
+  syncInstallButton();
+  refreshIcons();
 }
 
 // ===== Navigation =====
@@ -714,6 +782,7 @@ function renderCurrentSection() {
       renderCalendar();
       break;
   }
+  refreshIcons();
 }
 
 // ===== Sidebar Mobile =====
@@ -801,19 +870,19 @@ function renderQuickActions() {
   
   container.innerHTML = `
     <div class="quick-action" onclick="showAddHabitModal()">
-      <div class="quick-action-icon" style="background: var(--success-light); color: var(--success);">🎯</div>
+      <div class="quick-action-icon" style="background: var(--success-light); color: var(--success);"><i data-lucide="target"></i></div>
       <span class="quick-action-label">${state.t('addHabit')}</span>
     </div>
     <div class="quick-action" onclick="showAddTaskModal()">
-      <div class="quick-action-icon" style="background: var(--accent-primary-light); color: var(--accent-primary);">✓</div>
+      <div class="quick-action-icon" style="background: var(--accent-primary-light); color: var(--accent-primary);"><i data-lucide="list-checks"></i></div>
       <span class="quick-action-label">${state.t('addTask')}</span>
     </div>
     <div class="quick-action" onclick="showAddNoteModal()">
-      <div class="quick-action-icon" style="background: var(--warning-light); color: var(--warning);">📝</div>
+      <div class="quick-action-icon" style="background: var(--warning-light); color: var(--warning);"><i data-lucide="sticky-note"></i></div>
       <span class="quick-action-label">${state.t('addNote')}</span>
     </div>
     <div class="quick-action" onclick="showAddCourseModal()">
-      <div class="quick-action-icon" style="background: var(--accent-secondary-light); color: var(--accent-secondary);">📚</div>
+      <div class="quick-action-icon" style="background: var(--accent-secondary-light); color: var(--accent-secondary);"><i data-lucide="graduation-cap"></i></div>
       <span class="quick-action-label">${state.t('addCourse')}</span>
     </div>
   `;
@@ -845,28 +914,28 @@ function renderDashboardStats() {
     statsGrid.innerHTML = `
       <div class="stat-card">
         <div class="stat-card-header">
-          <div class="stat-card-icon blue">✓</div>
+          <div class="stat-card-icon blue"><i data-lucide="list-checks"></i></div>
         </div>
         <div class="stat-card-value">${completedTasks}</div>
         <div class="stat-card-label">${state.t('tasksCompleted')}</div>
       </div>
       <div class="stat-card">
         <div class="stat-card-header">
-          <div class="stat-card-icon green">🎯</div>
+          <div class="stat-card-icon green"><i data-lucide="target"></i></div>
         </div>
         <div class="stat-card-value">${completedHabits}/${todayHabits.length}</div>
         <div class="stat-card-label">${state.t('habitsCompleted')}</div>
       </div>
       <div class="stat-card">
         <div class="stat-card-header">
-          <div class="stat-card-icon purple">📚</div>
+          <div class="stat-card-icon purple"><i data-lucide="graduation-cap"></i></div>
         </div>
         <div class="stat-card-value">${activeCourses}</div>
         <div class="stat-card-label">${state.t('coursesActive')}</div>
       </div>
       <div class="stat-card">
         <div class="stat-card-header">
-          <div class="stat-card-icon orange">🔥</div>
+          <div class="stat-card-icon orange"><i data-lucide="flame"></i></div>
         </div>
         <div class="stat-card-value">${maxStreak}</div>
         <div class="stat-card-label">${state.t('streakDays')}</div>
@@ -2034,9 +2103,17 @@ function initApp() {
 
   // Upgrade manifest icons to crisp PNGs for the installed app icon
   enhancePwaIcons();
+
+  // PWA: network pill, install surfaces
+  updateNetPill();
+  syncInstallButton();
+  renderInstallBanner();
   
   // Update badge counts
   updateBadges();
+
+  // Draw all Lucide icons present in the static markup
+  refreshIcons();
 }
 
 function setupEventListeners() {
@@ -2127,6 +2204,16 @@ function setupEventListeners() {
       if (searchInput) searchInput.focus();
     }
   });
+
+  // PWA install entry point (sidebar button)
+  const installBtn = $('#install-btn');
+  if (installBtn) {
+    installBtn.addEventListener('click', handleInstallClick);
+  }
+
+  // Network status monitoring
+  window.addEventListener('online', () => updateNetPill(true));
+  window.addEventListener('offline', () => updateNetPill(true));
 }
 
 function updateBadges() {
@@ -2141,17 +2228,60 @@ function updateBadges() {
   }
 }
 
-// ===== Service Worker Registration =====
+// ===== Service Worker Registration + Live Updates =====
+let pendingReload = false;
+
 function registerServiceWorker() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(registration => {
-        console.log('Service Worker registered:', registration);
-      })
-      .catch(error => {
-        console.log('Service Worker registration failed:', error);
+  if (!('serviceWorker' in navigator)) return;
+
+  window.addEventListener('load', async () => {
+    try {
+      const reg = await navigator.serviceWorker.register('/service-worker.js');
+
+      // A new version was downloaded → offer to activate it
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        if (!newWorker) return;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            showUpdateToast(newWorker);
+          }
+        });
       });
-  }
+
+      // Once the new SW takes control, reload to serve fresh assets
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (pendingReload) {
+          pendingReload = false;
+          window.location.reload();
+        }
+      });
+
+      // Hourly update check
+      setInterval(() => reg.update(), 60 * 60 * 1000);
+    } catch (e) {
+      console.log('Service Worker registration failed:', e);
+    }
+  });
+}
+
+function showUpdateToast(worker) {
+  const container = $('.toast-container');
+  if (!container || $('.toast.update-toast')) return;
+
+  const toast = createElement('div', 'toast info persistent update-toast');
+  toast.innerHTML = `
+    <span class="toast-icon">⟳</span>
+    <span class="toast-message">${state.t('newVersion')}</span>
+    <button class="toast-action">${state.t('updateNow')}</button>
+  `;
+
+  toast.querySelector('.toast-action').addEventListener('click', () => {
+    pendingReload = true;
+    worker.postMessage('SKIP_WAITING');
+  });
+
+  container.appendChild(toast);
 }
 
 // ===== PWA Icons: render logo.svg to crisp PNGs for the install icon =====
@@ -2210,33 +2340,166 @@ async function enhancePwaIcons() {
   }
 }
 
-// ===== PWA Install Prompt =====
-let deferredPrompt;
+// ===== PWA Install System =====
+let deferredPrompt = null;
+
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches ||
+         window.navigator.standalone === true;
+}
+
+function isIos() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) && !isStandalone();
+}
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  
-  // Show install button if needed
-  const installBtn = $('.install-btn');
-  if (installBtn) {
-    installBtn.style.display = 'flex';
-    installBtn.addEventListener('click', async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User ${outcome} the install prompt`);
-        deferredPrompt = null;
-        installBtn.style.display = 'none';
-      }
-    });
-  }
+  renderInstallBanner();
 });
 
 window.addEventListener('appinstalled', () => {
-  console.log('App installed successfully');
   deferredPrompt = null;
+  removeInstallBanner();
+  showToast(state.t('appInstalled'));
+  syncInstallButton();
 });
+
+async function promptInstall() {
+  if (!deferredPrompt) return false;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    deferredPrompt = null;
+    removeInstallBanner();
+  }
+  return outcome === 'accepted';
+}
+
+// Crafted install banner shown on the dashboard when installable
+function renderInstallBanner() {
+  if (isStandalone() || !deferredPrompt) return;
+  if (localStorage.getItem('khalood-install-dismissed')) return;
+
+  const target = $('#section-dashboard');
+  if (!target || target.querySelector('.install-banner')) return;
+
+  const banner = createElement('div', 'install-banner');
+  banner.innerHTML = `
+    <div class="install-banner-logo"><img src="/logo.svg" alt="KHALOOD"></div>
+    <div class="install-banner-text">
+      <div class="install-banner-title">${state.t('installBannerTitle')}</div>
+      <div class="install-banner-desc">${state.t('installBannerDesc')}</div>
+    </div>
+    <div class="install-banner-actions">
+      <button class="btn btn-install" id="banner-install">
+        <i data-lucide="download"></i> ${state.t('installNow')}
+      </button>
+      <button class="install-dismiss" id="banner-dismiss" aria-label="${state.t('later')}">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+  `;
+
+  target.insertBefore(banner, target.firstChild);
+  refreshIcons();
+
+  banner.querySelector('#banner-install').addEventListener('click', promptInstall);
+  banner.querySelector('#banner-dismiss').addEventListener('click', () => {
+    localStorage.setItem('khalood-install-dismissed', '1');
+    banner.style.animation = 'none';
+    banner.style.opacity = '0';
+    banner.style.transform = 'translateY(-8px)';
+    banner.style.transition = 'all 0.25s ease';
+    setTimeout(() => banner.remove(), 260);
+  });
+}
+
+function removeInstallBanner() {
+  const banner = $('.install-banner');
+  if (banner) banner.remove();
+}
+
+// Sidebar button: smart install entry point
+async function handleInstallClick() {
+  if (isStandalone()) {
+    showToast(state.t('installedAlready'), 'info');
+    return;
+  }
+  if (deferredPrompt) {
+    await promptInstall();
+    return;
+  }
+  showInstallGuide();
+}
+
+function syncInstallButton() {
+  const btn = $('#install-btn');
+  if (!btn) return;
+  if (isStandalone()) {
+    btn.innerHTML = `<i data-lucide="check-circle-2"></i> <span>${state.t('installedAlready')}</span>`;
+  }
+  refreshIcons();
+}
+
+// Platform-aware installation instructions
+function showInstallGuide() {
+  let stepsHtml = '';
+
+  if (isIos()) {
+    stepsHtml = `
+      <h4 style="margin-bottom:12px;color:var(--text-secondary);font-size:0.85rem;">${state.t('guideIosTitle')}</h4>
+      <div class="guide-steps">
+        <div class="guide-step"><span class="guide-step-num">1</span><span class="guide-step-text"><i data-lucide="share"></i>${state.t('stepShare')}</span></div>
+        <div class="guide-step"><span class="guide-step-num">2</span><span class="guide-step-text"><i data-lucide="plus-square"></i>${state.t('stepAddHome')}</span></div>
+        <div class="guide-step"><span class="guide-step-num">3</span><span class="guide-step-text"><i data-lucide="check"></i>${state.t('stepConfirm')}</span></div>
+      </div>`;
+  } else if (/android/i.test(navigator.userAgent)) {
+    stepsHtml = `
+      <h4 style="margin-bottom:12px;color:var(--text-secondary);font-size:0.85rem;">${state.t('guideAndroidTitle')}</h4>
+      <div class="guide-steps">
+        <div class="guide-step"><span class="guide-step-num">1</span><span class="guide-step-text"><i data-lucide="more-vertical"></i>${state.t('stepMenu')}</span></div>
+        <div class="guide-step"><span class="guide-step-num">2</span><span class="guide-step-text"><i data-lucide="download"></i>${state.t('stepInstall')}</span></div>
+      </div>`;
+  } else {
+    stepsHtml = `
+      <h4 style="margin-bottom:12px;color:var(--text-secondary);font-size:0.85rem;">${state.t('guideDesktopTitle')}</h4>
+      <div class="guide-steps">
+        <div class="guide-step"><span class="guide-step-num">1</span><span class="guide-step-text"><i data-lucide="more-vertical"></i>${state.t('stepMenu')}</span></div>
+        <div class="guide-step"><span class="guide-step-num">2</span><span class="guide-step-text"><i data-lucide="monitor-down"></i>${state.t('stepInstall')}</span></div>
+      </div>`;
+  }
+
+  openModal(state.t('guideTitle'), stepsHtml, null);
+  // Hide the save button for a guide-only modal
+  const saveBtn = $('.modal-save');
+  const cancelBtn = $('.modal-cancel');
+  if (saveBtn) saveBtn.style.display = 'none';
+  if (cancelBtn) cancelBtn.textContent = state.t('close');
+  refreshIcons();
+}
+
+// ===== Network Status =====
+function updateNetPill(showToastOnChange = false) {
+  const pill = $('#net-pill');
+  if (!pill) return;
+
+  const online = navigator.onLine;
+  pill.className = 'net-pill ' + (online ? 'online' : 'offline');
+  pill.innerHTML = `<i data-lucide="${online ? 'wifi' : 'wifi-off'}"></i><span>${online ? state.t('online') : state.t('offline')}</span>`;
+  refreshIcons();
+
+  if (showToastOnChange) {
+    showToast(online ? state.t('backOnline') : state.t('lostConnection'), online ? 'success' : 'info');
+  }
+}
+
+// ===== Lucide icon refresh (after any dynamic render) =====
+function refreshIcons() {
+  if (window.lucide && typeof window.lucide.createIcons === 'function') {
+    window.lucide.createIcons();
+  }
+}
 
 // ===== Initialize on DOM Ready =====
 document.addEventListener('DOMContentLoaded', initApp);

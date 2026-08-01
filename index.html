@@ -4,11 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="KHALOOD - خالود | Your personal productivity and life management dashboard">
-  <meta name="theme-color" content="#3b82f6">
+  <meta name="theme-color" content="#0d1218">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="KHALOOD">
-  <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" href="/logo.svg">
   
   <title>KHALOOD - خالود | Life Management Dashboard</title>
@@ -22,7 +21,10 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Styles -->
   <link rel="stylesheet" href="/style.css">
@@ -51,32 +53,32 @@
         <div class="nav-section">
           <div class="nav-section-title" data-i18n="navSections">Sections</div>
           <div class="nav-item active" data-section="dashboard">
-            <span class="nav-item-icon">🏠</span>
+            <span class="nav-item-icon"><i data-lucide="layout-dashboard"></i></span>
             <span data-i18n="navDashboard">Dashboard</span>
           </div>
           <div class="nav-item" data-section="habits">
-            <span class="nav-item-icon">🎯</span>
+            <span class="nav-item-icon"><i data-lucide="target"></i></span>
             <span data-i18n="navHabits">Habits</span>
           </div>
           <div class="nav-item" data-section="tasks">
-            <span class="nav-item-icon">✓</span>
+            <span class="nav-item-icon"><i data-lucide="list-checks"></i></span>
             <span data-i18n="navTasks">Tasks</span>
             <span class="nav-item-badge tasks-badge" style="display: none;">0</span>
           </div>
           <div class="nav-item" data-section="notes">
-            <span class="nav-item-icon">📝</span>
+            <span class="nav-item-icon"><i data-lucide="sticky-note"></i></span>
             <span data-i18n="navNotes">Notes</span>
           </div>
           <div class="nav-item" data-section="courses">
-            <span class="nav-item-icon">📚</span>
+            <span class="nav-item-icon"><i data-lucide="graduation-cap"></i></span>
             <span data-i18n="navCourses">Courses</span>
           </div>
           <div class="nav-item" data-section="reflection">
-            <span class="nav-item-icon">💭</span>
-            <span data-i18n="navReflection">Reflection</span>
+            <span class="nav-item-icon"><i data-lucide="circle-help"></i></span>
+            <span data-i18n="navReflection">Questions</span>
           </div>
           <div class="nav-item" data-section="calendar">
-            <span class="nav-item-icon">📅</span>
+            <span class="nav-item-icon"><i data-lucide="calendar-days"></i></span>
             <span data-i18n="navCalendar">Calendar</span>
           </div>
         </div>
@@ -84,9 +86,10 @@
       
       <div class="sidebar-footer">
         <div class="sidebar-footer-content">
-          <div class="user-avatar">U</div>
-          <button class="install-btn btn btn-primary btn-sm" style="display: none;">
-            📲 Install
+          <div class="user-avatar">K</div>
+          <button class="install-btn btn btn-primary btn-sm" id="install-btn">
+            <i data-lucide="download"></i>
+            <span data-i18n="installApp">Install App</span>
           </button>
         </div>
       </div>
@@ -97,18 +100,21 @@
       <!-- Header -->
       <header class="header">
         <div class="header-left">
-          <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+          <button class="menu-toggle" aria-label="Toggle menu"><i data-lucide="menu"></i></button>
           <h1 class="page-title" data-i18n="dashboardTitle">Dashboard</h1>
         </div>
         
         <div class="header-right">
+          <span class="net-pill online" id="net-pill">
+            <i data-lucide="wifi"></i><span>Online</span>
+          </span>
           <div class="header-search">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon"><i data-lucide="search"></i></span>
             <input type="text" class="search-input" data-i18n="search" placeholder="Search...">
           </div>
           
           <button class="lang-toggle" aria-label="Toggle language">عربي</button>
-          <button class="header-btn theme-toggle" aria-label="Toggle theme">🌙</button>
+          <button class="header-btn theme-toggle" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
         </div>
       </header>
       
