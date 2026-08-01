@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KHALOOD - خالود | Your personal productivity and life management dashboard">
+  <meta name="theme-color" content="#3b82f6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KHALOOD">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a85cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='128' fill='url(%23g)'/%3E%3Ctext x='256' y='300' font-family='Arial' font-size='180' fill='white' text-anchor='middle' font-weight='bold'%3EKH%3C/text%3E%3C/svg%3E">
+  
+  <title>KHALOOD - خالود | Life Management Dashboard</title>
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a85cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='128' fill='url(%23g)'/%3E%3Ctext x='256' y='300' font-family='Arial' font-size='180' fill='white' text-anchor='middle' font-weight='bold'%3EKH%3C/text%3E%3C/svg%3E">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- App Container -->
+  <div class="app-container">
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">KH</div>
+          <div>
+            <div class="logo-text">KHALOOD</div>
+            <div class="logo-subtitle" data-i18n="appSubtitle">Life Management Dashboard</div>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title" data-i18n="navSections">Sections</div>
+          <div class="nav-item active" data-section="dashboard">
+            <span class="nav-item-icon">🏠</span>
+            <span data-i18n="navDashboard">Dashboard</span>
+          </div>
+          <div class="nav-item" data-section="habits">
+            <span class="nav-item-icon">🎯</span>
+            <span data-i18n="navHabits">Habits</span>
+          </div>
+          <div class="nav-item" data-section="tasks">
+            <span class="nav-item-icon">✓</span>
+            <span data-i18n="navTasks">Tasks</span>
+            <span class="nav-item-badge tasks-badge" style="display: none;">0</span>
+          </div>
+          <div class="nav-item" data-section="notes">
+            <span class="nav-item-icon">📝</span>
+            <span data-i18n="navNotes">Notes</span>
+          </div>
+          <div class="nav-item" data-section="courses">
+            <span class="nav-item-icon">📚</span>
+            <span data-i18n="navCourses">Courses</span>
+          </div>
+          <div class="nav-item" data-section="reflection">
+            <span class="nav-item-icon">💭</span>
+            <span data-i18n="navReflection">Reflection</span>
+          </div>
+          <div class="nav-item" data-section="calendar">
+            <span class="nav-item-icon">📅</span>
+            <span data-i18n="navCalendar">Calendar</span>
+          </div>
+        </div>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="sidebar-footer-content">
+          <div class="user-avatar">U</div>
+          <button class="install-btn btn btn-primary btn-sm" style="display: none;">
+            📲 Install
+          </button>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+          <h1 class="page-title" data-i18n="dashboardTitle">Dashboard</h1>
+        </div>
+        
+        <div class="header-right">
+          <div class="header-search">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" data-i18n="search" placeholder="Search...">
+          </div>
+          
+          <button class="lang-toggle" aria-label="Toggle language">عربي</button>
+          <button class="header-btn theme-toggle" aria-label="Toggle theme">🌙</button>
+        </div>
+      </header>
+      
+      <!-- Content Area -->
+      <div class="content-area">
+        
+        <!-- Dashboard Section -->
+        <section id="section-dashboard" class="section active">
+          <!-- Motivational Card -->
+          <div class="motivational-card">
+            <div class="motivational-content">
+              <p class="motivational-quote">"The secret of getting ahead is getting started."</p>
+              <p class="motivational-author">— Mark Twain</p>
+            </div>
+          </div>
+          
+          <!-- Daily Progress -->
+          <div class="daily-progress">
+            <div class="daily-progress-header">
+              <span class="daily-progress-title" data-i18n="dailyProgress">Daily Progress</span>
+              <div class="progress-ring">
+                <svg width="120" height="120" viewBox="0 0 120 120">
+                  <circle class="progress-ring-bg" cx="60" cy="60" r="52"></circle>
+                  <circle class="progress-ring-fill" cx="60" cy="60" r="52" style="stroke-dasharray: 326.73; stroke-dashoffset: 326.73;"></circle>
+                </svg>
+                <div class="progress-ring-text">
+                  <span class="progress-ring-value">0%</span>
+                  <span class="progress-ring-label">Complete</span>
+                </div>
+              </div>
+            </div>
+            <div class="progress-steps">
+              <div class="progress-step"></div>
+              <div class="progress-step"></div>
+              <div class="progress-step"></div>
+              <div class="progress-step"></div>
+              <div class="progress-step"></div>
+              <div class="progress-step"></div>
+              <div class="progress-step"></div>
+              <div class="progress-step"></div>
+              <div class="progress-step"></div>
+              <div class="progress-step"></div>
+            </div>
+          </div>
+          
+          <!-- Quick Actions -->
+          <div class="quick-actions"></div>
+          
+          <!-- Stats Grid -->
+          <div class="dashboard-grid"></div>
+          
+          <!-- Today Summary -->
+          <div class="today-summary"></div>
+          
+          <!-- Today's Habits & Tasks -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">
+                  <span class="card-title-icon">🎯</span>
+                  <span data-i18n="todayHabits">Today's Habits</span>
+                </h2>
+                <button class="btn btn-ghost btn-sm" onclick="navigateTo('habits')" data-i18n="edit">View All</button>
+              </div>
+              <div class="card-body">
+                <div class="today-habits-list habits-list"></div>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">
+                  <span class="card-title-icon">✓</span>
+                  <span data-i18n="todayTasks">Today's Tasks</span>
+                </h2>
+                <button class="btn btn-ghost btn-sm" onclick="navigateTo('tasks')" data-i18n="edit">View All</button>
+              </div>
+              <div class="card-body">
+                <div class="today-tasks-list"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Habits Section -->
+        <section id="section-habits" class="section">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
+                <span class="card-title-icon">🎯</span>
+                <span data-i18n="habitsTitle">Habits Tracker</span>
+              </h2>
+              <button class="btn btn-primary btn-sm" onclick="showAddHabitModal()">
+                <span>+</span> <span data-i18n="addNewHabit">Add New Habit</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <div id="habits-list" class="habits-list"></div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Tasks Section -->
+        <section id="section-tasks" class="section">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
+                <span class="card-title-icon">✓</span>
+                <span data-i18n="tasksTitle">Tasks Manager</span>
+              </h2>
+              <button class="btn btn-primary btn-sm" onclick="showAddTaskModal()">
+                <span>+</span> <span data-i18n="addNewTask">Add New Task</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <div id="tasks-list" class="tasks-section"></div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Notes Section -->
+        <section id="section-notes" class="section">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
+                <span class="card-title-icon">📝</span>
+                <span data-i18n="notesTitle">Notes</span>
+              </h2>
+              <button class="btn btn-primary btn-sm" onclick="showAddNoteModal()">
+                <span>+</span> <span data-i18n="addNewNote">Add New Note</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <div id="notes-grid" class="notes-grid"></div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Courses Section -->
+        <section id="section-courses" class="section">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
+                <span class="card-title-icon">📚</span>
+                <span data-i18n="coursesTitle">Courses Tracker</span>
+              </h2>
+              <button class="btn btn-primary btn-sm" onclick="showAddCourseModal()">
+                <span>+</span> <span data-i18n="addNewCourse">Add New Course</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <div id="courses-list" class="courses-list"></div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Reflection Section -->
+        <section id="section-reflection" class="section">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
+                <span class="card-title-icon">💭</span>
+                <span data-i18n="reflectionTitle">Daily Reflection</span>
+              </h2>
+              <button class="btn btn-primary btn-sm" onclick="showAddQuestionModal()">
+                <span>+</span> <span data-i18n="addQuestion">Add Question</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <div id="reflection-list" class="reflection-list"></div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Calendar Section -->
+        <section id="section-calendar" class="section">
+          <div class="calendar-container">
+            <div class="calendar-header">
+              <h2 class="card-title">
+                <span class="card-title-icon">📅</span>
+                <span data-i18n="calendarTitle">Calendar</span>
+              </h2>
+              <div class="calendar-nav">
+                <button class="btn btn-ghost btn-icon calendar-prev" aria-label="Previous month">◀</button>
+                <button class="btn btn-secondary btn-sm calendar-today" data-i18n="today">Today</button>
+                <span class="calendar-month">January 2024</span>
+                <button class="btn btn-ghost btn-icon calendar-next" aria-label="Next month">▶</button>
+              </div>
+            </div>
+            <div class="calendar-grid"></div>
+          </div>
+          
+          <!-- Calendar Day Detail -->
+          <div class="calendar-day-detail" style="display: none;"></div>
+        </section>
+        
+      </div>
+    </main>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Modal Title</h3>
+        <button class="modal-close" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <!-- Dynamic content -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel" data-i18n="cancel">Cancel</button>
+        <button class="btn btn-primary modal-save" data-i18n="save">Save</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Toast Container -->
+  <div class="toast-container"></div>
+  
+  <!-- Scripts -->
+  <script src="/app.js"></script>
+</body>
+</html>

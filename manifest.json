@@ -1,0 +1,80 @@
+{
+  "name": "KHALOOD - خالود | Life Management Dashboard",
+  "short_name": "KHALOOD",
+  "description": "Your personal productivity and life management dashboard - خالود لإدارة حياتك",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f172a",
+  "theme_color": "#6366f1",
+  "lang": "en",
+  "dir": "auto",
+  "categories": ["productivity", "lifestyle"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Habits - العادات",
+      "short_name": "Habits",
+      "url": "/index.html#habits",
+      "description": "Track your daily habits",
+      "icons": [{ "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎯%3C/text%3E%3C/svg%3E", "sizes": "96x96", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Tasks - المهام",
+      "short_name": "Tasks",
+      "url": "/index.html#tasks",
+      "description": "Manage your tasks",
+      "icons": [{ "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E✓%3C/text%3E%3C/svg%3E", "sizes": "96x96", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Courses - الدورات",
+      "short_name": "Courses",
+      "url": "/index.html#courses",
+      "description": "Track your courses",
+      "icons": [{ "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📚%3C/text%3E%3C/svg%3E", "sizes": "96x96", "type": "image/svg+xml" }]
+    }
+  ],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a85cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='128' fill='url(%23g)'/%3E%3Ctext x='256' y='300' font-family='Arial' font-size='180' fill='white' text-anchor='middle' font-weight='bold'%3EKH%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a85cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='192' height='192' rx='48' fill='url(%23g)'/%3E%3Ctext x='96' y='120' font-family='Arial' font-size='80' fill='white' text-anchor='middle' font-weight='bold'%3EKH%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 144 144'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a85cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='144' height='144' rx='36' fill='url(%23g)'/%3E%3Ctext x='72' y='90' font-family='Arial' font-size='60' fill='white' text-anchor='middle' font-weight='bold'%3EKH%3C/text%3E%3C/svg%3E",
+      "sizes": "144x144",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a85cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='96' height='96' rx='24' fill='url(%23g)'/%3E%3Ctext x='48' y='60' font-family='Arial' font-size='40' fill='white' text-anchor='middle' font-weight='bold'%3EKH%3C/text%3E%3C/svg%3E",
+      "sizes": "96x96",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a85cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='72' height='72' rx='18' fill='url(%23g)'/%3E%3Ctext x='36' y='46' font-family='Arial' font-size='30' fill='white' text-anchor='middle' font-weight='bold'%3EKH%3C/text%3E%3C/svg%3E",
+      "sizes": "72x72",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "handle_links": "preferred",
+  "url_handlers": [
+    { "origin": "https://khalood.app" }
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "display_override": ["window-controls-overlay", "standalone"]
+}
