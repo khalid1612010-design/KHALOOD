@@ -2,9 +2,8 @@
   "name": "خالود KHALOOD - Life Management Dashboard",
   "short_name": "KHALOOD",
   "description": "Your personal productivity and life management dashboard - خالود لإدارة حياتك",
-  "id": "/",
-  "start_url": "/index.html",
-  "scope": "/",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#0d1218",
@@ -16,52 +15,52 @@
     {
       "name": "Habits - العادات",
       "short_name": "Habits",
-      "url": "/index.html#habits",
+      "url": "./index.html#habits",
       "description": "Track your daily habits",
-      "icons": [{ "src": "/logo.svg", "sizes": "96x96", "type": "image/svg+xml" }]
+      "icons": [{ "src": "./logo.svg", "sizes": "96x96", "type": "image/svg+xml" }]
     },
     {
       "name": "Tasks - المهام",
       "short_name": "Tasks",
-      "url": "/index.html#tasks",
+      "url": "./index.html#tasks",
       "description": "Manage your tasks",
-      "icons": [{ "src": "/logo.svg", "sizes": "96x96", "type": "image/svg+xml" }]
+      "icons": [{ "src": "./logo.svg", "sizes": "96x96", "type": "image/svg+xml" }]
     },
     {
       "name": "Courses - الدورات",
       "short_name": "Courses",
-      "url": "/index.html#courses",
+      "url": "./index.html#courses",
       "description": "Track your courses",
-      "icons": [{ "src": "/logo.svg", "sizes": "96x96", "type": "image/svg+xml" }]
+      "icons": [{ "src": "./logo.svg", "sizes": "96x96", "type": "image/svg+xml" }]
     }
   ],
   "icons": [
     {
-      "src": "/logo.svg",
+      "src": "./logo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/logo.svg",
+      "src": "./logo.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/logo.svg",
+      "src": "./logo.svg",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/logo.svg",
+      "src": "./logo.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "maskable"
     },
     {
-      "src": "/logo.svg",
+      "src": "./logo.svg",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "maskable"

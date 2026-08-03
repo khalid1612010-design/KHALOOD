@@ -753,6 +753,13 @@ function navigateTo(section) {
   
   // Render section content
   renderCurrentSection();
+
+  // Keep URL hash in sync so PWA shortcuts deep-link into sections
+  try {
+    history.replaceState(null, '', '#' + section);
+  } catch (e) {
+    location.hash = section;
+  }
   
   // Close mobile sidebar
   closeSidebar();
@@ -884,6 +891,10 @@ function renderQuickActions() {
     <div class="quick-action" onclick="showAddCourseModal()">
       <div class="quick-action-icon" style="background: var(--accent-secondary-light); color: var(--accent-secondary);"><i data-lucide="graduation-cap"></i></div>
       <span class="quick-action-label">${state.t('addCourse')}</span>
+    </div>
+    <div class="quick-action" onclick="handleInstallClick()">
+      <div class="quick-action-icon" style="background: linear-gradient(135deg, rgba(63,208,201,0.18), rgba(246,212,137,0.18)); color: #f6d489;"><i data-lucide="smartphone"></i></div>
+      <span class="quick-action-label">${state.t('installApp')}</span>
     </div>
   `;
 }
@@ -2097,6 +2108,12 @@ function initApp() {
   
   // Render initial section
   renderCurrentSection();
+
+  // Deep-link: open the section from the URL hash (used by PWA shortcuts)
+  const initialSection = (location.hash || '').replace('#', '');
+  if (['habits', 'tasks', 'notes', 'courses', 'reflection', 'calendar'].includes(initialSection)) {
+    navigateTo(initialSection);
+  }
   
   // Register service worker
   registerServiceWorker();
@@ -2236,7 +2253,7 @@ function registerServiceWorker() {
 
   window.addEventListener('load', async () => {
     try {
-      const reg = await navigator.serviceWorker.register('/service-worker.js');
+      const reg = await navigator.serviceWorker.register('service-worker.js');
 
       // A new version was downloaded → offer to activate it
       reg.addEventListener('updatefound', () => {
@@ -2309,8 +2326,8 @@ function svgToPngDataUrl(svgText, size) {
 async function enhancePwaIcons() {
   try {
     const [svgRes, manifestRes] = await Promise.all([
-      fetch('/logo.svg'),
-      fetch('/manifest.json')
+      fetch('logo.svg'),
+      fetch('manifest.json')
     ]);
     if (!svgRes.ok || !manifestRes.ok) return;
 
@@ -2386,7 +2403,7 @@ function renderInstallBanner() {
 
   const banner = createElement('div', 'install-banner');
   banner.innerHTML = `
-    <div class="install-banner-logo"><img src="/logo.svg" alt="KHALOOD"></div>
+    <div class="install-banner-logo"><img src="logo.svg" alt="KHALOOD"></div>
     <div class="install-banner-text">
       <div class="install-banner-title">${state.t('installBannerTitle')}</div>
       <div class="install-banner-desc">${state.t('installBannerDesc')}</div>
@@ -2530,3 +2547,4 @@ window.goToToday = goToToday;
 window.navigateTo = navigateTo;
 window.toggleSidebar = toggleSidebar;
 window.closeModal = closeModal;
+window.handleInstallClick = handleInstallClick;

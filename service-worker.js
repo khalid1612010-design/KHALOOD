@@ -1,11 +1,11 @@
-const CACHE_NAME = 'khalood-v3';
+const CACHE_NAME = 'khalood-v4';
 const CORE_ASSETS = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/app.js',
-  '/manifest.json',
-  '/logo.svg'
+  './',
+  './index.html',
+  './style.css',
+  './app.js',
+  './manifest.json',
+  './logo.svg'
 ];
 
 // ===== Install: precache core shell =====
@@ -51,10 +51,10 @@ self.addEventListener('fetch', event => {
       fetch(req)
         .then(res => {
           const copy = res.clone();
-          caches.open(CACHE_NAME).then(c => c.put('/index.html', copy));
+          caches.open(CACHE_NAME).then(c => c.put('./index.html', copy));
           return res;
         })
-        .catch(() => caches.match('/index.html'))
+        .catch(() => caches.match('./index.html'))
     );
     return;
   }
@@ -108,8 +108,8 @@ self.addEventListener('push', event => {
   event.waitUntil(
     self.registration.showNotification('KHALOOD - خالود', {
       body,
-      icon: '/logo.svg',
-      badge: '/logo.svg',
+      icon: './logo.svg',
+      badge: './logo.svg',
       vibrate: [100, 50, 100]
     })
   );
